@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/primaryColor" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ProgressBar
+                android:id="@+id/pb_loading_details"
+                style="@style/ProgressApperance"
+                android:visibility="invisible" />
+
+            <ScrollView
+                android:id="@+id/details_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/topContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/videoPreview"
+                            android:layout_width="match_parent"
+                            android:layout_height="180dp"
+                            android:background="@color/primaryDarkColor"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            app:layout_constraintBottom_toBottomOf="@id/videoPreview"
+                            app:layout_constraintEnd_toEndOf="@id/videoPreview"
+                            app:layout_constraintStart_toStartOf="@id/videoPreview"
+                            app:layout_constraintTop_toTopOf="@id/videoPreview"
+                            app:srcCompat="@drawable/playbutton_180" />
+
+                        <TextView
+                            android:id="@+id/tv_movie_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginTop="4dp"
+                            android:fontFamily="sans-serif-light"
+                            android:textColor="@android:color/white"
+                            android:textSize="36sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/videoPreview"
+                            tools:text="Maze Runner: The Death Cure" />
+
+                        <TextView
+                            android:id="@+id/tv_movie_info"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textColor="@color/accentColor"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toStartOf="@+id/tv_movie_title"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_movie_title"
+                            tools:text="2018   PG-13   2h 13min   Action, Sci-Fi, Thriller" />
+
+                        <View
+                            android:id="@+id/line1"
+                            style="@style/LineApperance"
+                            android:layout_marginTop="16dp"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_movie_info" />
+
+                        <FrameLayout
+                            android:id="@+id/frameLayout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/line1">
+
+                            <ImageView
+                                android:id="@+id/iv_movie_pic"
+                                style="@style/NormalPosterThumbnail"
+                                android:padding="6dp"
+                                app:srcCompat="@mipmap/ic_launcher" />
+
+                            <ImageView
+                                style="@style/NormalPosterThumbnail"
+                                app:srcCompat="@drawable/frame" />
+                        </FrameLayout>
+
+                        <TextView
+                            android:id="@+id/tv_plot"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="6dp"
+                            android:lineSpacingExtra="2sp"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                            android:textColor="@android:color/white"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/frameLayout"
+                            app:layout_constraintTop_toTopOf="@+id/frameLayout"
+                            tools:text="Young hero Thomas embarks on a mission to find a cure for a deadly disease known as the &quot;Flare&quot;." />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/bottomContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <android.support.constraint.Guideline
+                            android:id="@+id/guideline"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.50" />
+
+                        <ImageView
+                            android:id="@+id/iv_star"
+                            style="@style/RatingStar"
+                            android:layout_marginTop="16dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/guideline"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_imdb_rating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:textColor="@android:color/white"
+                            android:textSize="18sp"
+                            app:layout_constraintEnd_toStartOf="@+id/guideline"
+                            app:layout_constraintHorizontal_bias="0.42"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/iv_star"
+                            tools:text="7.0" />
+
+                        <TextView
+                            android:id="@+id/tv_rating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif"
+                            android:text="@string/rating_of_ten"
+                            android:textColor="@android:color/white"
+                            android:textSize="14sp"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/tv_imdb_rating"
+                            app:layout_constraintStart_toEndOf="@+id/tv_imdb_rating"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_votes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginStart="8dp"
+                            android:text="Votes"
+                            app:layout_constraintBottom_toBottomOf="@+id/iv_star"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/guideline" />
+
+                        <TextView
+                            android:id="@+id/tv_imdb_votes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginLeft="8dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:textColor="@android:color/white"
+                            android:textSize="18sp"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/tv_imdb_rating"
+                            app:layout_constraintEnd_toEndOf="@+id/tv_votes"
+                            app:layout_constraintStart_toStartOf="@+id/tv_votes"
+                            tools:text="15,972" />
+
+                        <View
+                            android:id="@+id/line2"
+                            style="@style/LineApperance"
+                            android:layout_marginTop="16dp"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_rating" />
+
+                        <TextView
+                            android:id="@+id/tv_cast_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginTop="8dp"
+                            android:text="Cast"
+                            android:textColor="@android:color/white"
+                            android:textSize="24sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/line2" />
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/tv_cast_data"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="12dp"
+                            app:layout_constraintTop_toBottomOf="@id/tv_cast_title"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"/>
+
+                        <TextView
+                            android:id="@+id/tv_director_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="Director"
+                            android:textColor="@android:color/white"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="@+id/tv_cast_title"
+                            app:layout_constraintTop_toBottomOf="@id/tv_cast_data" />
+
+                        <TextView
+                            android:id="@+id/tv_director"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:fontFamily="sans-serif-medium"
+                            app:layout_constraintStart_toStartOf="@+id/tv_director_title"
+                            app:layout_constraintTop_toBottomOf="@id/tv_director_title"
+                            tools:text="Wes Ball" />
+
+                        <TextView
+                            android:id="@+id/tv_writers_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="Writers"
+                            android:textColor="@android:color/white"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="@+id/tv_director"
+                            app:layout_constraintTop_toBottomOf="@id/tv_director" />
+
+                        <TextView
+                            android:id="@+id/tv_writers"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:fontFamily="sans-serif-medium"
+                            app:layout_constraintStart_toStartOf="@+id/tv_writers_title"
+                            app:layout_constraintTop_toBottomOf="@id/tv_writers_title"
+                            tools:text="T.S. Nowlin (screenplay by), James Dashner (based upon the novel by)" />
+                    </android.support.constraint.ConstraintLayout>
+                </LinearLayout>
+            </ScrollView>
+        </FrameLayout>
+    </LinearLayout>
+</layout>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Movies Database</string>
+    <string name="error_message">Unfortunately something went wrong, please try again later.</string>
+    <string name="search_hint">Type movie name and press Search.</string>
+    <string name="search_button">Search</string>
+    <string name="action_settings">Settings</string>
+    <string name="search">Search</string>
+
+    <string name="dummy_text">$$$$$$$$$</string>
+    <string name="dummy_number">##</string>
+
+    <string name="rating_of_ten">/10</string>
+
+    <string name="metascore">Metascore</string>
+</resources>

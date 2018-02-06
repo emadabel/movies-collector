@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primaryColor">#212121</color>
+    <color name="primaryLightColor">#484848</color>
+    <color name="primaryDarkColor">#000000</color>
+    <color name="secondaryColor">#263238</color>
+    <color name="secondaryLightColor">#4f5b62</color>
+    <color name="secondaryDarkColor">#000a12</color>
+    <color name="primaryTextColor">#ffffff</color>
+    <color name="secondaryTextColor">#E0E0E0</color>
+    <color name="accentColor">#e0e0e0</color>
+    <color name="background_dark">@color/background_material_dark</color>
+
+    <color name="line">#cacaca</color>
+    <color name="defaultBackground">#ececec</color>
+
+    <color name="metaNoScore">#bbb</color>
+    <color name="meta0to3Score">#f00</color>
+    <color name="meta4to6Score">#fc3</color>
+    <color name="meta7to10Score">#6c3</color>
+
+</resources>

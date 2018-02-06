@@ -9,23 +9,17 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.example.android.moviesdatabase.databinding.ActivityDetailsBinding;
-import com.example.android.moviesdatabase.databinding.CastListBinding;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import info.movito.themoviedbapi.TmdbMovies;
 import info.movito.themoviedbapi.model.Artwork;
-import info.movito.themoviedbapi.model.ArtworkType;
 import info.movito.themoviedbapi.model.Genre;
 import info.movito.themoviedbapi.model.MovieDb;
 import info.movito.themoviedbapi.model.Video;
@@ -33,7 +27,9 @@ import info.movito.themoviedbapi.model.people.PersonCast;
 import info.movito.themoviedbapi.model.people.PersonCrew;
 
 import static com.example.android.moviesdatabase.MainActivity.tmdbApi;
-import static info.movito.themoviedbapi.TmdbMovies.MovieMethod.*;
+import static info.movito.themoviedbapi.TmdbMovies.MovieMethod.credits;
+import static info.movito.themoviedbapi.TmdbMovies.MovieMethod.images;
+import static info.movito.themoviedbapi.TmdbMovies.MovieMethod.videos;
 
 /**
  * Created by Emad on 13/12/2017.
@@ -178,10 +174,10 @@ public class DetailsActivity extends AppCompatActivity implements
 
             StringBuilder stringGeners = new StringBuilder("");
             List<Genre> genres = movieData.getGenres();
-            for (Genre gener:genres) {
+            for (Genre gener : genres) {
                 stringGeners.append(gener.getName());
 
-                if (genres.indexOf(gener) < genres.size()-1) {
+                if (genres.indexOf(gener) < genres.size() - 1) {
                     stringGeners.append(", ");
                 }
             }
@@ -207,7 +203,7 @@ public class DetailsActivity extends AppCompatActivity implements
                         directors += personCrew.getName() + ", ";
                 } else if (personCrew.getDepartment().equals("Writing")) {
                     if (personCrew.getJob().matches("Author|Writer|Screenplay|Novel"))
-                    writers += personCrew.getName() + " (" + personCrew.getJob() + ")" +  ", ";
+                        writers += personCrew.getName() + " (" + personCrew.getJob() + ")" + ", ";
                 }
             }
 

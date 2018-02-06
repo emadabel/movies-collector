@@ -1,8 +1,6 @@
 package com.example.android.moviesdatabase;
 
-import android.app.Activity;
 import android.content.Context;
-import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,13 +8,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.android.moviesdatabase.databinding.CastListBinding;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import static com.example.android.moviesdatabase.MainActivity.tmdbApi;
 import info.movito.themoviedbapi.model.people.PersonCast;
+
+import static com.example.android.moviesdatabase.MainActivity.tmdbApi;
 
 /**
  * Created by Emad on 06/02/2018.
@@ -27,7 +25,7 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastViewHolder
     private Context mContext;
     private List<PersonCast> mCastData;
 
-    public CastAdapter (Context context) {
+    public CastAdapter(Context context) {
         mContext = context;
     }
 

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
     android:layout_gravity="center_horizontal"
+    android:layout_margin="4dp"
     card_view:cardCornerRadius="@dimen/activity_horizontal_margin"
     card_view:cardUseCompatPadding="true">
 
@@ -39,10 +39,10 @@
             android:id="@+id/tv_character"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:fontFamily="sans-serif-medium"
+            android:paddingBottom="8dp"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="@+id/tv_person_name"

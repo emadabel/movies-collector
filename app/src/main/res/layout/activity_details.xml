@@ -39,23 +39,27 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <ImageView
-                            android:id="@+id/videoPreview"
+                        <FrameLayout
+                            android:id="@+id/previewFrame"
                             android:layout_width="match_parent"
-                            android:layout_height="180dp"
-                            android:background="@color/primaryDarkColor"
+                            android:layout_height="wrap_content"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent">
 
-                        <ImageView
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            app:layout_constraintBottom_toBottomOf="@id/videoPreview"
-                            app:layout_constraintEnd_toEndOf="@id/videoPreview"
-                            app:layout_constraintStart_toStartOf="@id/videoPreview"
-                            app:layout_constraintTop_toTopOf="@id/videoPreview"
-                            app:srcCompat="@drawable/playbutton_180" />
+                            <ImageView
+                                android:id="@+id/videoPreview"
+                                android:layout_width="match_parent"
+                                android:layout_height="180dp"
+                                android:background="@color/primaryDarkColor"
+                                android:scaleType="centerCrop" />
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                app:srcCompat="@drawable/playbutton_180" />
+                        </FrameLayout>
 
                         <TextView
                             android:id="@+id/tv_movie_title"
@@ -68,7 +72,7 @@
                             android:textColor="@android:color/white"
                             android:textSize="36sp"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/videoPreview"
+                            app:layout_constraintTop_toBottomOf="@+id/previewFrame"
                             tools:text="Maze Runner: The Death Cure" />
 
                         <TextView
@@ -266,8 +270,10 @@
                             android:id="@+id/tv_writers"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
                             android:layout_marginTop="4dp"
                             android:fontFamily="sans-serif-medium"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="@+id/tv_writers_title"
                             app:layout_constraintTop_toBottomOf="@id/tv_writers_title"
                             tools:text="T.S. Nowlin (screenplay by), James Dashner (based upon the novel by)" />

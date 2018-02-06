@@ -1,11 +1,11 @@
 package com.example.android.moviesdatabase;
 
-import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,10 +16,12 @@ import android.view.View;
 import com.example.android.moviesdatabase.databinding.ActivityDetailsBinding;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import info.movito.themoviedbapi.TmdbMovies;
 import info.movito.themoviedbapi.model.Artwork;
+import info.movito.themoviedbapi.model.ArtworkType;
 import info.movito.themoviedbapi.model.Genre;
 import info.movito.themoviedbapi.model.MovieDb;
 import info.movito.themoviedbapi.model.Video;
@@ -42,9 +44,10 @@ public class DetailsActivity extends AppCompatActivity implements
     private static final int MOVIES_LOADER_ID = 21;
 
     private ActivityDetailsBinding mDetailBinding;
-    //private CastListBinding mCastBinding;
 
     private CastAdapter mCastAdapter;
+
+    private ArrayList<String> postersUrl = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +78,29 @@ public class DetailsActivity extends AppCompatActivity implements
         getSupportLoaderManager().initLoader(MOVIES_LOADER_ID, null, callback);
 
         loadMovieData(extraMovieId);
+
+        mDetailBinding.videoPreview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String videoPath = (String) v.getTag();
+                Uri webpage = Uri.parse(videoPath);
+                Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
+            }
+        });
+
+        mDetailBinding.ivMoviePic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (postersUrl.size() > 0) {
+                    Intent intent = new Intent(DetailsActivity.this, PreviewActivity.class);
+                    intent.putStringArrayListExtra("EXTRA_POSTER_URL", postersUrl);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     private void loadMovieData(int query) {
@@ -89,24 +115,6 @@ public class DetailsActivity extends AppCompatActivity implements
             loaderManager.initLoader(MOVIES_LOADER_ID, queryBundle, this);
         } else {
             loaderManager.restartLoader(MOVIES_LOADER_ID, queryBundle, this);
-        }
-    }
-
-    public int getMetaBgColor(Context context, String metascore) {
-
-        if (metascore.isEmpty() || metascore.equalsIgnoreCase("N/A")) {
-            return ContextCompat.getColor(context, R.color.metaNoScore);
-        }
-
-        int score = Integer.valueOf(metascore);
-        if (score <= 39) {
-            return ContextCompat.getColor(context, R.color.meta0to3Score);
-        } else if (score <= 60 && score >= 40) {
-            return ContextCompat.getColor(context, R.color.meta4to6Score);
-        } else if (score >= 61) {
-            return ContextCompat.getColor(context, R.color.meta7to10Score);
-        } else {
-            return ContextCompat.getColor(context, R.color.metaNoScore);
         }
     }
 
@@ -170,7 +178,6 @@ public class DetailsActivity extends AppCompatActivity implements
     public void onLoadFinished(Loader<MovieDb> loader, MovieDb movieData) {
         if (movieData != null) {
             mDetailBinding.tvMovieTitle.setText(movieData.getTitle());
-            //mReleaseYearTextView.setText("(" + movieData.getReleaseDate() + ")");
 
             StringBuilder stringGeners = new StringBuilder("");
             List<Genre> genres = movieData.getGenres();
@@ -182,7 +189,9 @@ public class DetailsActivity extends AppCompatActivity implements
                 }
             }
 
-            String movieInfo = movieData.getRuntime() + "   " +
+            String yearRelease = movieData.getReleaseDate().split("-")[0];
+
+            String movieInfo = yearRelease + "   " + movieData.getRuntime() + "mins   " +
                     stringGeners.toString();
             mDetailBinding.tvMovieInfo.setText(movieInfo);
             mDetailBinding.tvPlot.setText(movieData.getOverview());
@@ -194,39 +203,78 @@ public class DetailsActivity extends AppCompatActivity implements
 
             mCastAdapter.setCastData(castList);
 
-            String directors = "", writers = "";
+            StringBuilder directors = new StringBuilder("");
+            StringBuilder writers = new StringBuilder("");
             for (int i = 0; i < crewList.size(); i++) {
                 PersonCrew personCrew = crewList.get(i);
 
                 if (personCrew.getDepartment().equals("Directing")) {
-                    if (personCrew.getJob().equals("Director"))
-                        directors += personCrew.getName() + ", ";
+                    if (personCrew.getJob().equals("Director")) {
+                        if (directors.length() == 0) {
+                            directors.append(personCrew.getName());
+                        } else {
+                            directors.append(", ")
+                                    .append(personCrew.getName());
+                        }
+                    }
                 } else if (personCrew.getDepartment().equals("Writing")) {
-                    if (personCrew.getJob().matches("Author|Writer|Screenplay|Novel"))
-                        writers += personCrew.getName() + " (" + personCrew.getJob() + ")" + ", ";
+                    if (personCrew.getJob().matches("Author|Writer|Screenplay|Novel")) {
+                        if (writers.length() == 0) {
+                            writers.append(personCrew.getName())
+                                    .append(" (")
+                                    .append(personCrew.getJob())
+                                    .append(")");
+                        } else {
+                            writers.append(", ")
+                                    .append(personCrew.getName())
+                                    .append(" (")
+                                    .append(personCrew.getJob())
+                                    .append(")");
+                        }
+                    }
                 }
             }
 
-            //mMovieCastTextView.setText("Director: " + directors + "\n" + "Writers: " + writers + "\n" + "Actors: " + " ");
-
-            List<Artwork> images = movieData.getImages();
-            List<Video> videos = movieData.getVideos();
-
-            //String metascore = String.valueOf(movieData.getMetascore());
-            //int bgColorForMetascore = getMetaBgColor(DetailsActivity.this, metascore);
-
-            //mMetascoreTextView.setText(metascore);
-            //mMetascoreTextView.setBackgroundColor(bgColorForMetascore);
+            mDetailBinding.tvDirector.setText(directors);
+            mDetailBinding.tvWriters.setText(writers);
 
             String posterPath = movieData.getPosterPath();
-            StringBuilder moviePoster = new StringBuilder(tmdbApi.getConfiguration().getSecureBaseUrl());
-            moviePoster.append("w342");
-            moviePoster.append(posterPath);
-
-            Picasso.with(DetailsActivity.this).load(moviePoster.toString())
+            posterPath = tmdbApi.getConfiguration().getSecureBaseUrl()
+                    .concat("w342")
+                    .concat(posterPath);
+            Picasso.with(DetailsActivity.this).load(posterPath)
                     .placeholder(R.drawable.placeholder)
                     .error(R.drawable.error)
                     .into(mDetailBinding.ivMoviePic);
+
+            List<Artwork> images = movieData.getImages();
+            for (Artwork img : images) {
+                if (img.getArtworkType() == ArtworkType.POSTER) {
+                    postersUrl.add(
+                            tmdbApi.getConfiguration().getSecureBaseUrl()
+                                    .concat("w342")
+                                    .concat(img.getFilePath())
+                    );
+                }
+            }
+
+            List<Video> videos = movieData.getVideos();
+
+            if (videos.size() > 0) {
+                if (videos.get(0).getSite().equals("YouTube")) {
+                    String videoPath = "https://www.youtube.com/watch?v=" + videos.get(0).getKey();
+                    mDetailBinding.videoPreview.setTag(videoPath);
+
+                    String thumbnailPath = "http://img.youtube.com/vi/" + videos.get(0).getKey() + "/0.jpg";
+
+                    Picasso.with(DetailsActivity.this).load(thumbnailPath)
+                            .into(mDetailBinding.videoPreview);
+
+                    mDetailBinding.previewFrame.setVisibility(View.VISIBLE);
+                }
+            } else {
+                mDetailBinding.previewFrame.setVisibility(View.GONE);
+            }
         }
         mDetailBinding.pbLoadingDetails.setVisibility(View.INVISIBLE);
         mDetailBinding.detailsContainer.setVisibility(View.VISIBLE);

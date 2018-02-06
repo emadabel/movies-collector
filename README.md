@@ -1,11 +1,7 @@
-# MoviesDatabase
-use Open Movie Database to search for movies in IMDB site
+# Movies Collector
+use The Movie DB API to search for movies
 
-* first you need to obtain API key from http://www.omdbapi.com/apikey.aspx
-* retrieve the API key from your email and activate it, by clicking the link in the email
-* explorer to MoviesDatabase/app/src/main/res/values/strings.xml
-* insert your API key in "api_key"
+* register new account at https://www.themoviedb.org/ and activate it.
+* from settings/API request for api key.
 
-# Credits
-API by Brian Fritz.
-http://www.omdbapi.com/
+[](https://www.themoviedb.org/static_cache/v4/logos/powered-by-rectangle-green-dcada16968ed648d5eb3b36bbcfdd8cdf804f723dcca775c8f2bf4cea025aad6.svg)
